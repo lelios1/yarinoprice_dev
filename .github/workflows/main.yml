@@ -1,0 +1,38 @@
+name: Python Scheduled Script
+
+on:
+  schedule:
+    - cron: "00 12 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Timezone
+        uses: lelios1/set-timezone@v1.0
+        with:
+          timezoneLinux: "Europe/Athens"
+      - name: Checkout repository content
+        uses: actions/checkout@v2 # Checkout the repository content to github runner.
+      - name: Setup Python Version
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9 # Install the python version needed
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "requirements.txt"
+      - name: Execute Python script
+        run: python x.py
+
+      - name: Commit files
+        run:
+          git config --local user.name lelios1
+          git config --local user.email "thelelios1@gmail.com"
+          git add --all
+          git commit -am "GH ACTION Headlines $(date)"
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
