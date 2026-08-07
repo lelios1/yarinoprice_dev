@@ -3,6 +3,7 @@ name: Python Scheduled Script
 on:
   schedule:
     - cron: "00 12 * * *"
+      timezone: "Europe/Athens"
 
   workflow_dispatch:
 
@@ -11,10 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set Timezone
-        uses: lelios1/set-timezone@v1.0
-        with:
-          timezoneLinux: "Europe/Athens"
       - name: Checkout repository content
         uses: actions/checkout@v2 # Checkout the repository content to github runner.
       - name: Setup Python Version
