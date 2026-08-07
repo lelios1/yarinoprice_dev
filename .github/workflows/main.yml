@@ -25,7 +25,7 @@ jobs:
         run: python x.py
 
       - name: Commit files
-        run:
+        run: |
           git config --local user.name lelios1
           git config --local user.email "thelelios1@gmail.com"
           git add .
