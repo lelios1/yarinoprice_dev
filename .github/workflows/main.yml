@@ -17,12 +17,10 @@ jobs:
       - name: Setup Python Version
         uses: actions/setup-python@v7
         with:
-          python-version: 3.9 # Install the python version needed
+          python-version: 3.9
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r requirements.txt
 
-      - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v4
-        with:
-          path: "requirements.txt"
       - name: Execute Python script
         run: python x.py
 
